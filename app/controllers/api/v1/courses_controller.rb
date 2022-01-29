@@ -16,6 +16,7 @@ module Api
 
       def create
         course = Course.new(course_params)
+        course.user = current_user
 
         if course.save
           render status: :created, json: serializer.new(course)

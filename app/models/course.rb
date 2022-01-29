@@ -21,4 +21,6 @@ class Course < ApplicationRecord
   enum language: LANGUAGES
 
   scope :recent, -> { order(created_at: :desc) }
+
+  belongs_to :user
 end

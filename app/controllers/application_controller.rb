@@ -18,4 +18,12 @@ class ApplicationController < ActionController::API
     return params.dig(:page, :size) if params[:page].is_a?(Hash)
     1
   end
+
+  def current_user
+    User.first_or_create(
+      login: 'admin@comeimparare.it',
+      name: 'emanuele',
+      is_admin: true
+    )
+  end
 end
