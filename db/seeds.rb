@@ -10,8 +10,9 @@ user = User.first_or_create(
   user.courses.create!(
     title: Faker::Movie.title, 
     description: Faker::Movie.quote,
-    price: 10,
-    difficulty: 'easy',
-    language: 'english'
+    summary: Faker::TvShows::FamilyGuy.quote,
+    price: Faker::Number.between(from: 1000, to: 30000),
+    difficulty: rand(0..2),
+    language: rand(0..3)
   )
 end

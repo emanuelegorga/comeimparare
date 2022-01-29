@@ -38,6 +38,7 @@ module V1
       params.require(:course).permit(
         :title,
         :description,
+        :summary,
         :difficulty,
         :language,
         :price,

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Course < ApplicationRecord
-  validates :title, :description, :difficulty, :language, :price, presence: true
+  validates :title, :description, :summary, :difficulty, :language, :price, presence: true
   validates :description, length: { minumum: 10, maximum: 3500 }
 
   DIFFICULTY_LEVELS = {
