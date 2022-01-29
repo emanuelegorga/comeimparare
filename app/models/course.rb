@@ -23,5 +23,36 @@ class Course < ApplicationRecord
   scope :recent, -> { order(created_at: :desc) }
 
   belongs_to :user
-  has_many :lectures, dependent: :destroy
+  has_many :lectures, dependent: :destroy, inverse_of: :course
+  has_many :joins
+  has_many :progress_tracks, through: :lectures
+
+  scope :from_different_teachers, -> (current_user) { where.not(user: current_user) }
+  scope :latest, -> { order(created_at: :desc) }
+  scope :top_rated, -> { order(average_rating: :desc, created_at: :desc) }
+  scope :most_popular, -> { joins(:joins).group('joins.id').order('COUNT(joins.id)') }
+  scope :purchased, -> (current_user) do
+    joins(:joins)
+      .where(
+        joins: { user: current_user }
+      ).order(created_at: :desc)
+  end
+
+  def already_joined?(user)
+    self.joins.where(user_id: user.id, course_id: id).empty?
+  end
+
+  def rate!
+    if joins.any? && joins.where.not(rating: nil).any?
+      update_column(:average_rating, joins.average(:rating).round(2).to_f)
+    else
+      update_column(:average_rating, 0)
+    end
+  end
+
+  def progress(user)
+    unless self.lectures.count == 0
+      progress_tracks.where(user: user).count.to_f / self.lectures.count.to_f * 100
+    end
+  end
 end

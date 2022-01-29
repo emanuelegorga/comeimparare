@@ -9,7 +9,8 @@ RSpec.describe V1::CoursesController, type: :controller do
       description: 'Test description',
       difficulty: 'easy',
       language: 'english',
-      price: '10'
+      price: '10',
+      summary: 'Summary'
     }
   end
 

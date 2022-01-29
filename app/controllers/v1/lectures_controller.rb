@@ -2,10 +2,16 @@
 
 module V1
   class LecturesController < ApplicationController
-    before_action :set_course, only: %i[new create]
-    before_action :set_course_and_lecture, only: %i[show]
+    before_action :set_course, only: [:create, :index]
+    before_action :set_course_and_lecture, only: [:show]
+
+    def index
+      @lectures = @course.lectures
+      json_response(@lectures)
+    end
 
     def show
+      json_response(@lecture)
     end
 
     def create

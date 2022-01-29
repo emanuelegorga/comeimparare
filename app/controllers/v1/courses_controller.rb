@@ -28,6 +28,26 @@ module V1
       head :no_content
     end
 
+    def purchased
+      @courses = Course.joins(:joins).where(joins: { user: current_user })
+      json_response(@courses)
+    end
+
+    def pending_review
+      @courses = Course.joins(:joins).merge(Join.pending_review.where(user: current_user))
+      json_response(@courses)
+    end
+
+    def created
+      @courses = Course.where({ user: current_user })
+      json_response(@courses)
+    end
+
+    def from_different_teachers
+      @courses = Course.where.not({user: current_user})
+      json_response(@courses)
+    end
+
     private
 
     def set_course

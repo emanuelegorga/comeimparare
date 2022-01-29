@@ -3,4 +3,6 @@ class CourseSerializer < ActiveModel::Serializer
 
   belongs_to :user
   has_many :lectures
+  has_many :joins
+  has_many :progress_tracks
 end

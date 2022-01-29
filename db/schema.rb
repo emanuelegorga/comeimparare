@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_29_225324) do
+ActiveRecord::Schema.define(version: 2022_01_29_234608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,9 +27,22 @@ ActiveRecord::Schema.define(version: 2022_01_29_225324) do
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "user_id", null: false
     t.text "summary"
+    t.float "average_rating", default: 0.0, null: false
     t.index ["difficulty"], name: "index_courses_on_difficulty"
     t.index ["language"], name: "index_courses_on_language"
     t.index ["user_id"], name: "index_courses_on_user_id"
+  end
+
+  create_table "joins", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid "course_id", null: false
+    t.uuid "user_id", null: false
+    t.integer "rating"
+    t.text "review"
+    t.integer "price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_joins_on_course_id"
+    t.index ["user_id"], name: "index_joins_on_user_id"
   end
 
   create_table "lectures", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -39,6 +52,14 @@ ActiveRecord::Schema.define(version: 2022_01_29_225324) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["course_id"], name: "index_lectures_on_course_id"
+  end
+
+  create_table "progress_tracks", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid "lecture_id", null: false
+    t.uuid "user_id", null: false
+    t.integer "views", default: 0, null: false
+    t.index ["lecture_id"], name: "index_progress_tracks_on_lecture_id"
+    t.index ["user_id"], name: "index_progress_tracks_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -56,5 +77,9 @@ ActiveRecord::Schema.define(version: 2022_01_29_225324) do
   end
 
   add_foreign_key "courses", "users"
+  add_foreign_key "joins", "courses"
+  add_foreign_key "joins", "users"
   add_foreign_key "lectures", "courses"
+  add_foreign_key "progress_tracks", "lectures"
+  add_foreign_key "progress_tracks", "users"
 end
