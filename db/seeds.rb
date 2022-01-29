@@ -16,3 +16,10 @@ user = User.first_or_create(
     language: rand(0..3)
   )
 end
+
+2.times do
+  user.courses[0].lectures.create!(
+    title: Faker::Movie.title,
+    content: Faker::TvShows::FamilyGuy.quote
+  )
+end

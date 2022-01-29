@@ -23,4 +23,5 @@ class Course < ApplicationRecord
   scope :recent, -> { order(created_at: :desc) }
 
   belongs_to :user
+  has_many :lectures, dependent: :destroy
 end

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     post 'auth/login', to: 'authentication#authenticate'
 
     resources :users, only: [:create, :index]
-    resources :courses
+    resources :courses do
+      resources :lectures, only: [:show, :create, :update, :destroy]
+    end
   end
 end
