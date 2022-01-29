@@ -1,0 +1,63 @@
+require: rubocop-rails
+
+Rails:
+  Enabled: true
+AllCops:
+  DisplayCopNames: true
+  TargetRubyVersion: 2.7.0
+  Exclude:
+    - "tmp/**/*"
+    - "spec/**/*"
+    - "db/**/*"
+    - "bin/**/*"
+    - "vendor/**/*"
+    - "lib/tasks/**/*"
+    - "**/*.rake"
+    - "config.ru"
+    - "Gemfile"
+    - "Rakefile"
+    - "config/**/*"
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*.rb"
+    - "config/**/*.rb"
+    - "db/migrate/*.rb"
+    - "lib/tasks/*.rake"
+    - "db/schema.rb"
+Metrics/MethodLength:
+  Severity: refactor
+  Max: 25
+  Exclude:
+    - "db/schema.rb"
+    - "db/migrate/*.rb"
+    - "spec/**/*.rb"
+Metrics/AbcSize:
+  Severity: refactor
+  Max: 15
+  Exclude:
+    - "app/controllers/*.rb"
+    - "db/migrate/**/*.rb"
+Metrics/ClassLength:
+  Severity: refactor
+  Exclude:
+    - "app/controllers/*.rb"
+Metrics/LineLength:
+  Max: 100
+  IgnoredPatterns: ['(\A|\s)#']
+  Exclude:
+    - "db/schema.rb"
+    - "spec/**/*.rb"
+    - "config/**/*.rb"
+Metrics/ModuleLength:
+  Severity: refactor
+Metrics/PerceivedComplexity:
+  Severity: refactor
+Style/NumericLiterals:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Style/ConditionalAssignment:
+  Enabled: false
+Documentation:
+  Enabled: false
