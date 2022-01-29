@@ -32,17 +32,17 @@ ActiveRecord::Schema.define(version: 2022_01_29_162332) do
   end
 
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string "login", null: false
-    t.string "name", null: false
-    t.string "url"
+    t.string "name"
+    t.string "email", null: false
+    t.string "password_digest"
     t.string "avatar_url"
-    t.string "provider", default: "local"
+    t.string "platform", default: "local"
     t.boolean "is_admin", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email"
     t.index ["is_admin"], name: "index_users_on_is_admin"
-    t.index ["login"], name: "index_users_on_login"
-    t.index ["provider"], name: "index_users_on_provider"
+    t.index ["platform"], name: "index_users_on_platform"
   end
 
   add_foreign_key "courses", "users"

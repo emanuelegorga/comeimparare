@@ -1,17 +1,17 @@
 class CreateUsers < ActiveRecord::Migration[7.0]
   def change
     create_table :users, id: :uuid, default: -> { "uuid_generate_v4()" } do |t|
-      t.string :login, null: false
-      t.index :login
+      t.string :name
 
-      t.string :name, null: false
+      t.string :email, null: false
+      t.index :email
 
-      t.string :url
+      t.string :password_digest
 
       t.string :avatar_url
 
-      t.string :provider, default: 'local'
-      t.index :provider
+      t.string :platform, default: 'local'
+      t.index :platform
 
       t.boolean :is_admin, default: false
       t.index :is_admin

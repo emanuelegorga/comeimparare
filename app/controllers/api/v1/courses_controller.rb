@@ -6,39 +6,22 @@ module Api
       before_action :set_course, only: %i[show update destroy]
 
       def index
-        courses = Course.recent.page(current_page).per(per_page)
-        render status: :ok, json: serializer.new(courses)
+        @courses = Course.all
+        json_response(@courses)
       end
 
       def show
-        render json: serializer.new(@course)
+        json_response(@course)
       end
 
       def create
-        course = Course.new(course_params)
-        course.user = current_user
-
-        if course.save
-          render status: :created, json: serializer.new(course)
-        else
-          render status: :unprocessable_entity, json: serializer.new(course.errors)
-        end
-      rescue => exception
-        render status: :unprocessable_entity,
-          adapter: :json_api,
-          json: { 'details' => exception.message }
+        @course = current_user.courses.create!(course_params)
+        json_response(@course, :created)
       end
 
       def update
-        if @course.update(course_params)
-          render status: :ok, json: serializer.new(@course)
-        else
-          render status: :unprocessable_entity, json: serializer.new(@course.errors)
-        end
-      rescue => exception
-        render status: :unprocessable_entity, 
-          adapter: :json_api,
-          json: { 'details': exception.message }
+        @course.update(course_params)
+        head :no_content
       end
 
       def destroy
@@ -60,11 +43,7 @@ module Api
           :language,
           :price,
           :metadata
-        ) || ActionController::Parameters.new
-      end
-
-      def serializer
-        CourseSerializer
+        )
       end
     end
   end

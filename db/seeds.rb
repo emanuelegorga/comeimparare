@@ -1,6 +1,8 @@
 user = User.first_or_create(
-  login: 'admin@comeimparare.it',
+  email: 'admin@comeimparare.it',
   name: 'emanuele',
+  password: 'password',
+  password_confirmation: 'password',
   is_admin: true
 )
 

@@ -5,5 +5,6 @@ FactoryBot.define do
     sequence(:price) { |n| '10' }
     language { 'english' }
     difficulty { 'easy' }
+    association :user
   end
 end 

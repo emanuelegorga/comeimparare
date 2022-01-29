@@ -1,20 +1,10 @@
-
 require 'rails_helper'
 
 RSpec.describe Course, type: :model do
-  it 'should test that the factory is valid' do
-    expect(FactoryBot.build :course).to be_valid
-  end
-
-  it 'should validate the presence of title' do
-    course = FactoryBot.build :course, title: ''
-    expect(course).not_to be_valid
-    expect(course.errors.messages[:title]).to include("can't be blank")
-  end
-
-  it 'should validate the presence of description' do
-    course = FactoryBot.build :course, description: ''
-    expect(course).not_to be_valid
-    expect(course.errors.messages[:description]).to include("can't be blank")
-  end
+  it { should belong_to(:user) }
+  it { should validate_presence_of(:title) }
+  it { should validate_presence_of(:description) }
+  it { should validate_presence_of(:difficulty) }
+  it { should validate_presence_of(:language) }
+  it { should validate_presence_of(:price) }
 end

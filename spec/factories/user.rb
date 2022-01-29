@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :user do
-    sequence(:login) { |n| "emanuele #{n}" }
+    sequence(:email) { |n| "emanuele#{n}@comeimparo.it" }
     name { 'Emanuele' }
-    url { 'http://comeimparare.it' }
+    password { 'password' }
     avatar_url { 'http://comeimparare.it/avatar' }
-    provider { 'local' }
-    is_admin { false }
+    platform { 'local' }
+    is_admin true
   end
 end
