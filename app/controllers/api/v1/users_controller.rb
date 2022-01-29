@@ -6,7 +6,8 @@ module Api
       skip_before_action :authorize_request, only: :create
 
       def index
-        users = User.all.page(current_page).per(per_page)
+        users = User.all
+        json_response(users)
       end
 
       def create

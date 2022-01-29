@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ExceptionHandler
   extend ActiveSupport::Concern
 
@@ -18,11 +20,11 @@ module ExceptionHandler
 
   private
 
-  def four_twenty_two(e)
-    json_response({ message: e.message }, :unprocessable_entity)
+  def four_twenty_two(error)
+    json_response({ message: error.message }, :unprocessable_entity)
   end
 
-  def unauthorized_request(e)
-    json_response({ message: e.message }, :unauthorized)
+  def unauthorized_request(error)
+    json_response({ message: error.message }, :unauthorized)
   end
 end
