@@ -23,6 +23,7 @@ gem "bootsnap", require: false
 gem "rack-cors"
 gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

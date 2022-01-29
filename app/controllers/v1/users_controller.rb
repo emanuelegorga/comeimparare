@@ -5,7 +5,7 @@ module V1
     skip_before_action :authorize_request, only: :create
 
     def index
-      users = User.all
+      users = User.all.paginate(page: params[:page], per_page: 20)
       json_response(users)
     end
 
