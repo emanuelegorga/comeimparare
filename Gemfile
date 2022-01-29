@@ -21,8 +21,8 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 gem "rack-cors"
-
 gem 'jwt'
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

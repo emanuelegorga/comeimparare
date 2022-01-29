@@ -17,7 +17,7 @@ module V1
     end
 
     def user_params
-      params.permit(
+      params.require(:user).permit(
         :name,
         :email,
         :password,

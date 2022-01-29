@@ -20,7 +20,7 @@ RSpec.describe V1::AuthenticationController, type: :controller do
     context 'When request is valid' do
       before do
         request.headers.merge!(headers)
-        post 'authenticate', params: valid_credentials
+        post 'authenticate', params: { user: valid_credentials }
       end
 
       it 'returns an authentication token' do
@@ -31,7 +31,7 @@ RSpec.describe V1::AuthenticationController, type: :controller do
     context 'When request is invalid' do
       before do
         request.headers.merge!(headers)
-        post 'authenticate', params: invalid_credentials
+        post 'authenticate', params: { user: invalid_credentials }
       end
 
       it 'returns a failure message' do

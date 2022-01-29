@@ -3,15 +3,22 @@ require 'rails_helper'
 RSpec.describe V1::UsersController, type: :controller do
   let(:user) { create(:user) }
   let(:headers) { valid_headers.except('Authorization') }
-  let(:valid_attributes) do
-    attributes_for(:user, password_confirmation: user.password)
+  let(:user_params) do
+    {
+      name: 'Test User',
+      email: 'test@test.com',
+      password: 'password',
+      password_confirmation: 'password',  
+      platform: 'local',
+      avatar_url: 'http://example.com'
+    }
   end
 
   describe 'POST /create' do
     context 'when valid request' do
       before do 
         request.headers.merge!(headers)
-        post :create, params: valid_attributes
+        post :create, params: { user: user_params }
       end
 
       it 'creates a new user' do
@@ -30,7 +37,7 @@ RSpec.describe V1::UsersController, type: :controller do
     context 'when invalid request' do
       before do
         request.headers.merge!(headers)
-        post :create, params: {}
+        post :create, params: { user: { 'email' => nil } }
       end
 
       it 'does not create a new user' do
