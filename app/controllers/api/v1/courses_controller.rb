@@ -6,7 +6,7 @@ module Api
       before_action :set_course, only: %i[show update destroy]
 
       def index
-        courses = Course.all
+        courses = Course.recent
         render status: :ok, json: serializer.new(courses)
       end
 

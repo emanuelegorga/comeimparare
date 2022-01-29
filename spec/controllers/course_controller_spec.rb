@@ -8,11 +8,11 @@ RSpec.describe Api::V1::CoursesController, type: :controller do
     end
 
     it 'should return proper json' do
-      courses = create_list :course, 2
+      create_list :course, 2
       
       get :index
 
-      courses.each_with_index do |course, index|
+      Course.recent.each_with_index do |course, index|
         expect(parsed_data[index]['attributes']).to eq({
           'id' => course.id,
           'title' => course.title,

@@ -19,4 +19,6 @@ class Course < ApplicationRecord
 
   enum difficulty: DIFFICULTY_LEVELS
   enum language: LANGUAGES
+
+  scope :recent, -> { order(created_at: :desc) }
 end
