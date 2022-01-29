@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_29_142850) do
+ActiveRecord::Schema.define(version: 2022_01_29_161020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,20 @@ ActiveRecord::Schema.define(version: 2022_01_29_142850) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["difficulty"], name: "index_courses_on_difficulty"
     t.index ["language"], name: "index_courses_on_language"
+  end
+
+  create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "login", null: false
+    t.string "name", null: false
+    t.string "url"
+    t.string "avatar_url"
+    t.string "provider", default: "local"
+    t.boolean "is_admin", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["is_admin"], name: "index_users_on_is_admin"
+    t.index ["login"], name: "index_users_on_login"
+    t.index ["provider"], name: "index_users_on_provider"
   end
 
 end
