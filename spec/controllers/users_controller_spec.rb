@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::UsersController, type: :controller do
+RSpec.describe V1::UsersController, type: :controller do
   let(:user) { create(:user) }
   let(:headers) { valid_headers.except('Authorization') }
   let(:valid_attributes) do

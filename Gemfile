@@ -23,7 +23,6 @@ gem "bootsnap", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem "rack-cors"
 
-# gem 'kaminari'
 gem 'jwt'
 
 group :development, :test do
@@ -33,13 +32,13 @@ group :development, :test do
   gem 'rubocop-rails'
   gem 'capybara', '>= 3.26'
   gem 'rspec-rails'
+  gem 'faker'
 end
 
 group :test do
   gem 'rubocop-rspec', require: false
   gem 'factory_bot_rails', '~> 4.0'
   gem 'shoulda-matchers', '~> 3.1'
-  gem 'faker'
   gem 'database_cleaner', '~> 1.7.0'
 end
 

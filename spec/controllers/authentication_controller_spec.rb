@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::AuthenticationController, type: :controller do
+RSpec.describe V1::AuthenticationController, type: :controller do
   describe 'POST /auth/login' do
     let!(:user) { create(:user, is_admin: true) }
     let(:headers) { valid_headers.except('Authorization') }
