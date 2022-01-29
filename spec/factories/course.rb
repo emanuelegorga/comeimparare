@@ -6,5 +6,6 @@ FactoryBot.define do
     language { 'english' }
     difficulty { 'easy' }
     association :user
+    summary { 'Example summary' }
   end
 end 
