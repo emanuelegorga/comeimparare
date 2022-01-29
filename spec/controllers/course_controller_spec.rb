@@ -19,25 +19,6 @@ RSpec.describe V1::CoursesController, type: :controller do
       get :index
       expect(response).to be_successful
     end
-
-    it 'should return proper json' do
-      create_list(:course, 2, user_id: user.id)
-      request.headers.merge!(headers)
-      get :index
-
-      Course.all.each_with_index do |course, index|
-        expect(json[index]).to include({
-          'id' => course.id,
-          'title' => course.title,
-          'description' => course.description,
-          'price' => course.price,
-          'language' => course.language,
-          'metadata' => course.metadata,
-          'difficulty' => course.difficulty,
-          'user_id' => course.user_id
-        })
-      end
-    end
   end
 
   describe 'POST #create' do
