@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_30_000627) do
+ActiveRecord::Schema.define(version: 2022_01_30_004102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,16 @@ ActiveRecord::Schema.define(version: 2022_01_30_000627) do
     t.index ["user_id"], name: "index_progress_tracks_on_user_id"
   end
 
+  create_table "remarks", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "lecture_id", null: false
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["lecture_id"], name: "index_remarks_on_lecture_id"
+    t.index ["user_id"], name: "index_remarks_on_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "name"
     t.string "email", null: false
@@ -84,4 +94,6 @@ ActiveRecord::Schema.define(version: 2022_01_30_000627) do
   add_foreign_key "lectures", "courses"
   add_foreign_key "progress_tracks", "lectures"
   add_foreign_key "progress_tracks", "users"
+  add_foreign_key "remarks", "lectures"
+  add_foreign_key "remarks", "users"
 end

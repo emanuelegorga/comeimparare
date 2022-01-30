@@ -18,7 +18,12 @@ Rails.application.routes.draw do
         patch :unpublish
       end
 
-      resources :lectures, only: [:show, :create, :update, :destroy]
+      resources :lectures, only: [:show, :create, :update, :destroy] do
+        member do
+          delete :delete_video
+        end
+        resources :remarks
+      end
       resources :joins do
         member do
           get :certificate

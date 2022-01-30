@@ -2,6 +2,7 @@
 
 module V1
   class LecturesController < ApplicationController
+    before_action :set_lecture, only: :delete_video
     before_action :set_course, only: [:create, :index]
     before_action :set_course_and_lecture, only: [:show]
 
@@ -29,6 +30,12 @@ module V1
       head :no_content
     end
 
+    def delete_video
+      @lecture.video.purge if @lecture.video.attached?
+      @lecture.video_thumbnail.purge if @lecture.video_thumbnail.attached?
+      head :no_content
+    end
+
     private
 
     def set_course_and_lecture
@@ -45,7 +52,7 @@ module V1
     end
 
     def lecture_params
-      params.require(:lecture).permit(:title, :content)
+      params.require(:lecture).permit(:title, :content, :video, :video_thumbnail)
     end
   end
 end

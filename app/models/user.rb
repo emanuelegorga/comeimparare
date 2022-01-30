@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :courses, dependent: :nullify
   has_many :joins, dependent: :nullify
   has_many :progress_tracks, dependent: :nullify
+  has_many :remarks, dependent: :nullify
 
   def join_course(course)
     self.joins.create!(course: course, price: course.price)
