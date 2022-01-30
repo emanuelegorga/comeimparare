@@ -8,6 +8,7 @@ module V1
     before_action :set_course, only: [:index, :create]
 
     def index
+      authorize @joins
       @joins = @course.joins.paginate(page: params[:page], per_page: 20)
       json_response(@joins)
     end
@@ -36,11 +37,13 @@ module V1
     end
 
     def update
+      authorize @join
       @join.update(join_params)
       head :no_content
     end
 
     def destroy
+      authorize @join
       @join.destroy
       head :no_content
     end
@@ -51,6 +54,7 @@ module V1
     end
 
     def certificate
+      authorize @join, :certificate?
       json_response({})
     end
 

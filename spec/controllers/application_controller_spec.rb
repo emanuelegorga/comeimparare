@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ApplicationController, type: :controller do
-  let!(:user) { create(:user, is_admin: true) }
+  let!(:user) { create(:user) }
   let(:headers) { { 'Authorization' => token_generator(user.id) } }
   let(:invalid_headers) { { 'Authorization' => nil } }
 

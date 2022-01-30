@@ -1,14 +1,29 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  rolify
   has_secure_password
 
+  after_create :assign_default_roles
+
+  validate :minimum_role_check, on: :update
   validates :email, :name, :password_digest, :platform, presence: true
 
   has_many :courses, dependent: :nullify
   has_many :joins, dependent: :nullify
   has_many :progress_tracks, dependent: :nullify
   has_many :remarks, dependent: :nullify
+
+  def assign_default_roles
+    if User.count == 1
+      self.add_role(:admin) if self.roles.blank?
+      self.add_role(:teacher)
+      self.add_role(:student)
+    else
+      self.add_role(:teacher) if self.roles.blank?
+      self.add_role(:student)
+    end
+  end
 
   def join_course(course)
     self.joins.create!(course: course, price: course.price)
@@ -30,5 +45,13 @@ class User < ApplicationRecord
   def calculate_join_costs
     update_column(:join_costs, (joins.map(&:price).sum))
     update_column(:balance, (course_profit - join_costs))
+  end
+
+  private
+
+  def minimum_role_check
+    if roles.blank?
+      errors.add(:roles, 'Each user is required to have at least one role.')
+    end
   end
 end

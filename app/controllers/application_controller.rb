@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  include ActionController::RequestForgeryProtection
   include Response
   include ExceptionHandler
+  include Pundit
+
+  protect_from_forgery
 
   before_action :authorize_request
 

@@ -17,6 +17,7 @@ module V1
       @course = Course.find(params[:course_id])
       @lecture = Lecture.find(params[:lecture_id])
       @remark = Remark.find(params[:id])
+      authorize @remark
       @remark.destroy
       head :no_content
     end

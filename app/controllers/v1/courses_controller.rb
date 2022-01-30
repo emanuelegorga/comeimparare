@@ -2,7 +2,7 @@
 
 module V1
   class CoursesController < ApplicationController
-    before_action :set_course, only: %i[show update destroy accept reject publish unpublish]
+    before_action :set_course, only: [:show, :update, :destroy, :accept, :reject, :publish, :unpublish]
 
     def index
       @courses = Course.published.accepted.paginate(page: params[:page], per_page: 20)
@@ -14,16 +14,20 @@ module V1
     end
 
     def create
-      @course = current_user.courses.create!(course_params)
+      @course = current_user.courses.new(course_params)
+      authorize @course
+      @course.save!
       json_response(@course, :created)
     end
 
     def update
+      authorize @course
       @course.update(course_params)
       head :no_content
     end
 
     def destroy
+      authorize @course
       @course.destroy
       head :no_content
     end
@@ -49,21 +53,25 @@ module V1
     end
 
     def accept
+      authorize @course, :admin_power?
       @course.update_attribute(:accepted, true)
       json_response(@course)
     end
 
     def reject
+      authorize @course, :admin_power?
       @course.update_attribute(:accepted, false)
       json_response(@course)
     end
 
     def publish
+      authorize @course, :admin_power?
       @course.update_attribute(:published, true)
       json_response(@course)
     end
 
     def unpublish
+      authorize @course, :admin_power?
       @course.update_attribute(:published, false)
       json_response(@course)
     end

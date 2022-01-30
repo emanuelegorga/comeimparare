@@ -2,8 +2,7 @@ user = User.first_or_create(
   email: 'admin@comeimparare.it',
   name: 'emanuele',
   password: 'password',
-  password_confirmation: 'password',
-  is_admin: true
+  password_confirmation: 'password'
 )
 
 10.times do 

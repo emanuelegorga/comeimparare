@@ -12,6 +12,8 @@ module V1
     end
 
     def show
+      @authorize
+      current_user.view_lecture(@lecture)
       json_response(@lecture)
     end
 
@@ -21,16 +23,19 @@ module V1
     end
 
     def update
+      @authorize
       @lecture.update(lecture_params)
       head :no_content
     end
 
     def destroy
+      @authorize
       @lecture.destroy
       head :no_content
     end
 
     def delete_video
+      authorize @lecture, :update?
       @lecture.video.purge if @lecture.video.attached?
       @lecture.video_thumbnail.purge if @lecture.video_thumbnail.attached?
       head :no_content

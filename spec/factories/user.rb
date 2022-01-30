@@ -5,6 +5,5 @@ FactoryBot.define do
     password { 'password' }
     avatar_url { 'http://comeimparare.it/avatar' }
     platform { 'local' }
-    is_admin true
   end
 end

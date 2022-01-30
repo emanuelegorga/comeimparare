@@ -17,9 +17,6 @@ gem "bcrypt", "~> 3.1.7"
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
-
 gem "rack-cors"
 gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'
@@ -29,8 +26,10 @@ gem 'wkhtmltopdf-binary', group: :development
 gem 'wkhtmltopdf-heroku', group: :production
 gem 'aws-sdk-s3', require: false
 gem 'active_storage_validations'
-gem 'image_processing'
+gem "image_processing", "~> 1.2"
 gem 'stripe'
+gem 'rolify'
+gem 'pundit'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

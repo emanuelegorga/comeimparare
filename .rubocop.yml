@@ -17,6 +17,13 @@ AllCops:
     - "Gemfile"
     - "Rakefile"
     - "config/**/*"
+  RSpec:
+    Patterns:
+      - _spec.rb
+      - "(?:^|/)spec/"
+  RSpec/FactoryBot:
+    Patterns:
+      - spec/factories/**/*.rb
 
 Metrics/BlockLength:
   Exclude:
