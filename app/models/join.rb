@@ -21,6 +21,14 @@ class Join < ApplicationRecord
 
   after_destroy { course.rate! }
 
+  after_create :calculate_balance
+  after_destroy :calculate_balance
+
+  def calculate_balance
+    course.calculate_profit
+    user.calculate_join_costs
+  end
+
   protected
 
   def cannot_join_own_course

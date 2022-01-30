@@ -21,4 +21,14 @@ class User < ApplicationRecord
       self.progress_tracks.create(lecture: lecture)
     end
   end
+
+  def calculate_course_profit
+    update_column(:course_profit, (courses.map(&:profit).sum))
+    update_column(:balance, (course_profit - join_costs))
+  end
+
+  def calculate_join_costs
+    update_column(:join_costs, (joins.map(&:price).sum))
+    update_column(:balance, (course_profit - join_costs))
+  end
 end

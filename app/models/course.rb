@@ -71,4 +71,9 @@ class Course < ApplicationRecord
   def rejected?
     !accepted
   end
+
+  def calculate_profit
+    update_column(:profit, (joins.map(&:price).sum))
+    user.calculate_course_profit
+  end
 end
