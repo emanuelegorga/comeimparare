@@ -2,7 +2,7 @@
 
 module V1
   class JoinsController < ApplicationController
-    skip_before_action :authorize_request!, :only => [:certificate]
+    skip_before_action :authorize_request, :only => [:certificate]
 
     before_action :set_join, only: [:show, :update, :destroy]
     before_action :set_course, only: [:index, :create]
