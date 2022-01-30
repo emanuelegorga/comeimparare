@@ -20,6 +20,6 @@ class JoinPolicy < ApplicationPolicy
   end
 
   def certificate?
-    @record.course.lectures.count == @record.course.progress_tracks.where(user: @record.user).count
+    @record.course.lectures_count == @record.course.progress_tracks.where(user: @record.user).count
   end
 end

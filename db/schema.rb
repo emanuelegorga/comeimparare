@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_30_091711) do
+ActiveRecord::Schema.define(version: 2022_01_30_142630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 2022_01_30_091711) do
     t.boolean "accepted"
     t.boolean "published", default: false
     t.integer "profit", default: 0, null: false
+    t.integer "joins_count", default: 0, null: false
+    t.integer "lectures_count", default: 0, null: false
     t.index ["difficulty"], name: "index_courses_on_difficulty"
     t.index ["language"], name: "index_courses_on_language"
     t.index ["user_id"], name: "index_courses_on_user_id"
@@ -82,6 +84,8 @@ ActiveRecord::Schema.define(version: 2022_01_30_091711) do
     t.uuid "course_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "remarks_count", default: 0, null: false
+    t.integer "progress_tracks_count", default: 0, null: false
     t.index ["course_id"], name: "index_lectures_on_course_id"
   end
 
@@ -124,6 +128,11 @@ ActiveRecord::Schema.define(version: 2022_01_30_091711) do
     t.integer "balance", default: 0, null: false
     t.integer "course_profit", default: 0, null: false
     t.integer "join_costs", default: 0, null: false
+    t.integer "courses_count", default: 0, null: false
+    t.integer "joins_count", default: 0, null: false
+    t.integer "progress_tracks_count", default: 0, null: false
+    t.integer "remarks_count", default: 0, null: false
+    t.integer "sign_in_count", default: 0, null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["platform"], name: "index_users_on_platform"
   end

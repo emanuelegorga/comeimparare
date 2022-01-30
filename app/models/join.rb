@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Join < ApplicationRecord
-  belongs_to :course
-  belongs_to :user
+  belongs_to :course, counter_cache: true
+  belongs_to :user, counter_cache: true
   
   validates_uniqueness_of :user_id, scope: :course_id
   validates_uniqueness_of :course_id, scope: :user_id

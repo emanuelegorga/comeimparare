@@ -4,7 +4,7 @@ class Lecture < ApplicationRecord
   VIDEO_ERROR_MESSAGE = 'Sorry, the size of this video is over than the limit allowed. Please use a video of size up to 50mb.'
   VIDEO_THUMBNAIL_ERROR_MESSAGE = 'Sorry, the size of this video thumbnail is over than the limit allowed. Please use a video thumbanail of size up to 500kb.'
 
-  belongs_to :course
+  belongs_to :course, counter_cache: true
 
   validates :title, :content, :course, presence: true
   validates :title, length: { maximum: 80 }

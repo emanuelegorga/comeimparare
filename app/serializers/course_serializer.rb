@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CourseSerializer < ActiveModel::Serializer
   attributes :id, 
     :title,
@@ -10,7 +12,9 @@ class CourseSerializer < ActiveModel::Serializer
     :created_at,
     :updated_at,
     :accepted,
-    :published
+    :published,
+    :average_rating,
+    :profit
 
   belongs_to :user
   has_many :lectures
