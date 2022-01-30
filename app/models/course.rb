@@ -80,4 +80,10 @@ class Course < ApplicationRecord
     update_column(:profit, (joins.map(&:price).sum))
     user.calculate_course_profit
   end
+
+  def logo_url
+    if self.logo.attached?
+      Rails.application.routes.url_helpers.rails_blob_path(self.logo, only_path: true)
+    end
+  end
 end
