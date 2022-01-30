@@ -2,6 +2,8 @@
 
 module V1
   class JoinsController < ApplicationController
+    skip_before_action :authorize_request!, :only => [:certificate]
+
     before_action :set_join, only: [:show, :update, :destroy]
     before_action :set_course, only: [:index, :create]
 
@@ -32,6 +34,10 @@ module V1
     def my_students
       @joins = Join.joins(:course).where(courses: { user: current_user })
       json_response(@joins)
+    end
+
+    def certificate
+      json_response({})
     end
 
     private

@@ -7,7 +7,7 @@ user = User.first_or_create(
 )
 
 10.times do 
-  user.courses.create!(
+  course = user.courses.create!(
     title: Faker::Movie.title, 
     description: Faker::Movie.quote,
     summary: Faker::TvShows::FamilyGuy.quote,
@@ -15,6 +15,7 @@ user = User.first_or_create(
     difficulty: rand(0..2),
     language: rand(0..3)
   )
+  course.logo.attach(io: File.open(File.join(Rails.root,'app/assets/images/sample.jpg')), filename: 'sample.jpg')
 end
 
 2.times do

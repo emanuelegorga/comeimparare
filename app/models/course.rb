@@ -4,6 +4,13 @@ class Course < ApplicationRecord
   validates :title, :description, :summary, :difficulty, :language, :price, presence: true
   validates :description, length: { minumum: 10, maximum: 3500 }
 
+  LOGO_ERROR_MESSAGE = 'Sorry, the size of this image is over than the limit allowed. Please use an image of size up to 500kb.'
+
+  has_one_attached :logo
+  validates :logo,
+    content_type: ['image/png', 'image/jpg', 'image/jpeg'],
+    size: { less_than: 500.kilobytes, message: LOGO_ERROR_MESSAGE }
+
   DIFFICULTY_LEVELS = {
     easy: 0,
     medium: 1,

@@ -19,7 +19,13 @@ Rails.application.routes.draw do
       end
 
       resources :lectures, only: [:show, :create, :update, :destroy]
-      resources :joins, only: [:create]
+      resources :joins do
+        member do
+          get :certificate
+        end
+      end
     end
+
+    get 'privacy_policy', to: 'home#privacy_policy'
   end
 end

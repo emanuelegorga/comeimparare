@@ -9,7 +9,7 @@ class ApplicationController < ActionController::API
   attr_reader :current_user
 
   def default_url_options
-    { host: ENV['DOMAIN'] || 'localhost:3000' }
+    { host: Rails.env.production? ? 'comeimparare.herokuapp.com' : 'localhost:3000' }
   end
 
   private

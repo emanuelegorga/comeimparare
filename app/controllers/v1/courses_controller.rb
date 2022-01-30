@@ -83,7 +83,8 @@ module V1
         :language,
         :price,
         :metadata,
-        :published
+        :published,
+        :logo
       )
     end
   end
