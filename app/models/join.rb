@@ -11,6 +11,8 @@ class Join < ApplicationRecord
   validates :user, :course, presence: true
   validate :cannot_join_own_course
 
+  monetize :price, as: 'price_amount', with_currency: :eur
+
   scope :pending_review, -> { where(rating: [0, nil, ''], review: [0, nil, '']) }
   scope :reviewed, -> { where.not(review: [0, nil, ""]) }
   scope :latest_top_reviewed, -> { reviewed.order(rating: :desc, created_at: :desc) }

@@ -12,6 +12,11 @@ class Course < ApplicationRecord
     content_type: ['image/png', 'image/jpg', 'image/jpeg'],
     size: { less_than: 500.kilobytes, message: LOGO_ERROR_MESSAGE }
 
+  belongs_to :user, counter_cache: true
+  has_many :lectures, dependent: :destroy, inverse_of: :course
+  has_many :joins
+  has_many :progress_tracks, through: :lectures
+
   DIFFICULTY_LEVELS = {
     easy: 0,
     medium: 1,
@@ -28,13 +33,10 @@ class Course < ApplicationRecord
   enum difficulty: DIFFICULTY_LEVELS
   enum language: LANGUAGES
 
+  monetize :price, as: 'price_amount', with_currency: :eur
+  monetize :profit, as: 'profit_amount', with_currency: :eur
+
   scope :recent, -> { order(created_at: :desc) }
-
-  belongs_to :user, counter_cache: true
-  has_many :lectures, dependent: :destroy, inverse_of: :course
-  has_many :joins
-  has_many :progress_tracks, through: :lectures
-
   scope :from_different_teachers, -> (current_user) { where.not(user: current_user) }
   scope :latest, -> { order(created_at: :desc) }
   scope :top_rated, -> { order(average_rating: :desc, created_at: :desc) }

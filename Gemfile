@@ -30,6 +30,8 @@ gem "image_processing", "~> 1.2"
 gem 'stripe'
 gem 'rolify'
 gem 'pundit'
+gem 'money-rails', '~> 1.13.3'
+gem 'money', '~> 6.13.5'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
