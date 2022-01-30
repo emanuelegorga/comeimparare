@@ -70,6 +70,7 @@ class Course < ApplicationRecord
   end
 
   def rejected?
+    return false if accepted.nil?
     !accepted
   end
 
