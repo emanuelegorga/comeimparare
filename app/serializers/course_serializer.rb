@@ -10,9 +10,7 @@ class CourseSerializer < ActiveModel::Serializer
     :created_at,
     :updated_at,
     :accepted,
-    :rejected,
-    :publish,
-    :unpublish
+    :published
 
   belongs_to :user
   has_many :lectures
