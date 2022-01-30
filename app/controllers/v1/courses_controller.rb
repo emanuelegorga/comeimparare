@@ -2,10 +2,10 @@
 
 module V1
   class CoursesController < ApplicationController
-    before_action :set_course, only: %i[show update destroy]
+    before_action :set_course, only: %i[show update destroy accept reject publish unpublish]
 
     def index
-      @courses = Course.all.paginate(page: params[:page], per_page: 20)
+      @courses = Course.published.accepted.paginate(page: params[:page], per_page: 20)
       json_response(@courses)
     end
 
@@ -48,6 +48,26 @@ module V1
       json_response(@courses)
     end
 
+    def accept
+      @course.update_attribute(:accepted, true)
+      json_response(@course)
+    end
+
+    def reject
+      @course.update_attribute(:accepted, false)
+      json_response(@course)
+    end
+
+    def publish
+      @course.update_attribute(:published, true)
+      json_response(@course)
+    end
+
+    def unpublish
+      @course.update_attribute(:published, false)
+      json_response(@course)
+    end
+
     private
 
     def set_course
@@ -62,7 +82,8 @@ module V1
         :difficulty,
         :language,
         :price,
-        :metadata
+        :metadata,
+        :published
       )
     end
   end

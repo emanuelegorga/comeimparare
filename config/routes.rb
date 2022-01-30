@@ -8,10 +8,18 @@ Rails.application.routes.draw do
     end
 
     resources :courses do
-      get :purchased, :pending_review, :creatd, on: :collection
+      get :purchased, :pending_review, :created, :pending, :rejected, on: :collection
+      get :from_different_teachers, on: :collection
+
+      member do
+        patch :accept
+        patch :reject
+        patch :publish
+        patch :unpublish
+      end
+
       resources :lectures, only: [:show, :create, :update, :destroy]
       resources :joins, only: [:create]
-      get :from_different_teachers, on: :collection
     end
   end
 end

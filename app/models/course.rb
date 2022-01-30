@@ -37,6 +37,11 @@ class Course < ApplicationRecord
         joins: { user: current_user }
       ).order(created_at: :desc)
   end
+  scope :published, -> { where(published: true) }
+  scope :unpublished, -> { where(published: false) }
+  scope :accepted, -> { where(accepted: true) }
+  scope :rejected, -> { where(accepted: false) }
+  scope :pending, -> { where(accepted: nil) }
 
   def already_joined?(user)
     self.joins.where(user_id: user.id, course_id: id).empty?
@@ -54,5 +59,9 @@ class Course < ApplicationRecord
     unless self.lectures.count == 0
       progress_tracks.where(user: user).count.to_f / self.lectures.count.to_f * 100
     end
+  end
+
+  def rejected?
+    !accepted
   end
 end

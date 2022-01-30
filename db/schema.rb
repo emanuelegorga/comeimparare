@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_29_234608) do
+ActiveRecord::Schema.define(version: 2022_01_30_000627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 2022_01_29_234608) do
     t.uuid "user_id", null: false
     t.text "summary"
     t.float "average_rating", default: 0.0, null: false
+    t.boolean "accepted"
+    t.boolean "published", default: false
     t.index ["difficulty"], name: "index_courses_on_difficulty"
     t.index ["language"], name: "index_courses_on_language"
     t.index ["user_id"], name: "index_courses_on_user_id"
