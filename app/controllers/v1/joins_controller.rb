@@ -17,6 +17,20 @@ module V1
     end
 
     def create
+      if @course.price > 0
+        customer = Stripe::Customer.create(
+          email: params[:stripeEmail],
+          source: params[:stripeToken]
+        )
+
+        Stripe::Charge.create(
+          customer:    customer.id,
+          amount:      (@course.price * 100).to_i,
+          description: @course.title,
+          currency:    'eur'
+        )
+      end
+
       @join = current_user.join_course(@course)
       json_response(@join, :created)
     end
