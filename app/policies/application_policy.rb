@@ -75,4 +75,7 @@ class ApplicationPolicy
   def is_join_owner?
     @user.present? && @record.present? && @record.user_id == @user.id
   end
+  def is_admin_or_user_owner?
+    is_admin? || @user.present? && @record.id == @user.id
+  end
 end

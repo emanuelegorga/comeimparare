@@ -2,13 +2,18 @@
 
 module V1
   class UsersController < ApplicationController
-    before_action :set_user, only: [:update, :index]
+    before_action :set_user, only: [:update, :show]
     skip_before_action :authorize_request, only: :create
 
     def index
-      authorize @user
+      authorize @current_user
       users = User.all.paginate(page: params[:page], per_page: 20)
       json_response(users)
+    end
+
+    def show
+      authorize @current_user
+      json_response(@user)
     end
 
     def create
@@ -19,8 +24,8 @@ module V1
     end
 
     def update
-      authorize @user
-      @user.update
+      authorize @current_user
+      @user.update(user_params)
       head :no_content
     end
 
