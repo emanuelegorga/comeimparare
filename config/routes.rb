@@ -16,8 +16,6 @@ Rails.application.routes.draw do
       get :full_list, on: :collection
     end
 
-    # post :create_payment_intent, to: 'orders#create_payment_intent'
-
     resources :courses do
       get :purchased, 
         :pending_review,
@@ -26,6 +24,7 @@ Rails.application.routes.draw do
         :rejected,
         :from_different_teachers,
         :top,
+        :latest,
         on: :collection
 
       member do

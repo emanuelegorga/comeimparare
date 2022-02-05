@@ -2,7 +2,7 @@
 
 module V1
   class CoursesController < ApplicationController
-    skip_before_action :authorize_request, only: [:index, :show, :top]
+    skip_before_action :authorize_request, only: [:index, :show, :top, :latest]
     before_action :set_course, only: [:show, :update, :destroy, :accept, :reject, :publish, :unpublish, :upload, :rate_course]
 
     def index
@@ -62,6 +62,10 @@ module V1
     def top
       @courses = Course.top_rated
       json_response(@courses)
+    end
+
+    def latest
+      json_response(Course.latest)
     end
 
     def accept

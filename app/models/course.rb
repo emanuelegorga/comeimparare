@@ -36,9 +36,8 @@ class Course < ApplicationRecord
   monetize :price, as: 'price_amount', with_currency: :eur
   monetize :profit, as: 'profit_amount', with_currency: :eur
 
-  scope :recent, -> { order(created_at: :desc) }
   scope :from_different_teachers, -> (current_user) { where.not(user: current_user) }
-  scope :latest, -> { order(created_at: :desc) }
+  scope :latest, -> { order(created_at: :desc).limit(3) }
   scope :top_rated, -> { order(average_rating: :desc, created_at: :desc) }
   scope :most_popular, -> { order(joins_count: :desc, created_at: :desc) }
   scope :purchased, -> (current_user) do
