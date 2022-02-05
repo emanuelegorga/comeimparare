@@ -3,7 +3,7 @@
 module V1
   class CoursesController < ApplicationController
     skip_before_action :authorize_request, only: [:index, :show]
-    before_action :set_course, only: [:show, :update, :destroy, :accept, :reject, :publish, :unpublish]
+    before_action :set_course, only: [:show, :update, :destroy, :accept, :reject, :publish, :unpublish, :upload]
 
     def index
       # @courses = Course.published.accepted.paginate(page: params[:page], per_page: 20)
@@ -76,6 +76,16 @@ module V1
       authorize @course, :admin_power?
       @course.update_attribute(:published, false)
       json_response(@course)
+    end
+
+    def upload
+      if params[:logo]
+        @course.logo.attach(params[:logo])
+        @course.update(logo: url_for(@course.logo))
+        json_response(@course)
+      else
+        json_response(@course, :unprocessable_entity)
+      end
     end
 
     private

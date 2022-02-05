@@ -30,6 +30,7 @@ Rails.application.routes.draw do
         patch :reject
         patch :publish
         patch :unpublish
+        put :upload
       end
 
       resources :lectures do
