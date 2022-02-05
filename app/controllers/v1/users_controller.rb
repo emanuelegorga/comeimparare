@@ -25,6 +25,7 @@ module V1
 
     def update
       authorize @current_user
+      @user.add_role(:admin) if params[:isAdmin]
       @user.update(user_params)
       head :no_content
     end
@@ -47,7 +48,8 @@ module V1
         :password,
         :password_confirmation,
         :platform,
-        :avatar_url
+        :avatar_url,
+        :isAdmin
       )
     end
   end
