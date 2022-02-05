@@ -8,7 +8,7 @@ module V1
       auth_token =
         AuthenticateUser.new(auth_params[:email], auth_params[:password]).call
       user = User.find_by(email: auth_params[:email])
-      json_response({auth_token: auth_token, id: user.id, name: user.name})
+      json_response({auth_token: auth_token, id: user.id, name: user.name, is_admin: user.has_role?(:admin)})
     end
 
     private

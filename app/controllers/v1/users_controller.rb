@@ -2,7 +2,7 @@
 
 module V1
   class UsersController < ApplicationController
-    before_action :set_user, only: [:update, :show]
+    before_action :set_user, only: [:update, :show, :destroy]
     skip_before_action :authorize_request, only: :create
 
     def index
@@ -27,6 +27,11 @@ module V1
       authorize @current_user
       @user.update(user_params)
       head :no_content
+    end
+
+    def destroy
+      authorize @current_user
+      @user.destroy
     end
 
     private

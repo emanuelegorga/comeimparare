@@ -18,4 +18,8 @@ class UserPolicy < ApplicationPolicy
   def update?
     is_admin_or_user_owner?
   end
+
+  def destroy?
+    is_admin_or_user_owner?
+  end
 end
