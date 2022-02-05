@@ -11,7 +11,7 @@ class Lecture < ApplicationRecord
   validates_uniqueness_of :title, scope: :course_id
 
   has_many :progress_tracks, dependent: :destroy
-  has_many :remarks, dependent: :nullify
+  has_many :remarks, dependent: :destroy
 
   has_one_attached :video
   has_one_attached :video_thumbnail

@@ -33,6 +33,7 @@ module V1
     def destroy
       authorize @current_user
       @user.destroy
+      head :no_content
     end
 
     private

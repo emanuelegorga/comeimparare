@@ -6,7 +6,8 @@ module V1
     before_action :set_course, only: [:show, :update, :destroy, :accept, :reject, :publish, :unpublish]
 
     def index
-      @courses = Course.published.accepted.paginate(page: params[:page], per_page: 20)
+      # @courses = Course.published.accepted.paginate(page: params[:page], per_page: 20)
+      @courses = Course.paginate(page: params[:page], per_page: 20)
       json_response(@courses)
     end
 
@@ -85,6 +86,7 @@ module V1
 
     def course_params
       params.require(:course).permit(
+        :id,
         :title,
         :description,
         :summary,
@@ -93,7 +95,9 @@ module V1
         :price,
         :metadata,
         :published,
-        :logo
+        :accepted,
+        :logo,
+        :all
       )
     end
   end
