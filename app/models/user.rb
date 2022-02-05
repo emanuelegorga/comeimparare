@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :joins, dependent: :nullify
   has_many :progress_tracks, dependent: :nullify
   has_many :remarks, dependent: :nullify
+  has_many :orders, dependent: :nullify
 
   def assign_default_roles
     if User.count == 1

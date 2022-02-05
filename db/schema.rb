@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_30_142630) do
+ActiveRecord::Schema.define(version: 2022_02_05_101835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,15 @@ ActiveRecord::Schema.define(version: 2022_01_30_142630) do
     t.index ["course_id"], name: "index_lectures_on_course_id"
   end
 
+  create_table "orders", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.text "courses", default: [], array: true
+    t.text "text", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "progress_tracks", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid "lecture_id", null: false
     t.uuid "user_id", null: false
@@ -133,6 +142,7 @@ ActiveRecord::Schema.define(version: 2022_01_30_142630) do
     t.integer "progress_tracks_count", default: 0, null: false
     t.integer "remarks_count", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
+    t.json "metadata", default: {}
     t.index ["email"], name: "index_users_on_email"
     t.index ["platform"], name: "index_users_on_platform"
   end
@@ -151,6 +161,7 @@ ActiveRecord::Schema.define(version: 2022_01_30_142630) do
   add_foreign_key "joins", "courses"
   add_foreign_key "joins", "users"
   add_foreign_key "lectures", "courses"
+  add_foreign_key "orders", "users"
   add_foreign_key "progress_tracks", "lectures"
   add_foreign_key "progress_tracks", "users"
   add_foreign_key "remarks", "lectures"

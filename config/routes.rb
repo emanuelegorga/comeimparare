@@ -6,7 +6,15 @@ Rails.application.routes.draw do
 
     resources :joins do
       get :my_students, on: :collection
+
+      member do
+        get :certificate
+      end
     end
+
+    resources :orders
+
+    post :create_payment_intent, to: 'orders#create_payment_intent'
 
     resources :courses do
       get :purchased, 
@@ -32,11 +40,7 @@ Rails.application.routes.draw do
         resources :remarks
       end
 
-      resources :joins do
-        member do
-          get :certificate
-        end
-      end
+      resources :joins, only: %i[create]
     end
 
     get 'privacy_policy', to: 'home#privacy_policy'
