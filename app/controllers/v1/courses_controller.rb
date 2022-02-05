@@ -2,13 +2,18 @@
 
 module V1
   class CoursesController < ApplicationController
-    skip_before_action :authorize_request, only: [:index, :show]
+    skip_before_action :authorize_request, only: [:index, :show, :top]
     before_action :set_course, only: [:show, :update, :destroy, :accept, :reject, :publish, :unpublish, :upload, :rate_course]
 
     def index
-      # @courses = Course.published.accepted.paginate(page: params[:page], per_page: 20)
-      @courses = Course.paginate(page: params[:page], per_page: 20)
-      json_response(@courses)
+      if params[:search_title] && !params[:search_title].empty?
+        ransack_courses = Course.ransack(title_cont: params[:search_title]).result(distinct: true)
+        # @courses = ransack_courses.paginate(page: params[:page], per_page: 4)
+        @courses = ransack_courses.paginate(page: params[:page], per_page: 1)
+      else
+        @courses = Course.paginate(page: params[:page], per_page: 20)
+      end
+      json_response({corsi: @courses, pages: @courses.total_pages, page: @courses.current_page})
     end
 
     def show
@@ -51,6 +56,11 @@ module V1
 
     def from_different_teachers
       @courses = Course.where.not({user: current_user})
+      json_response(@courses)
+    end
+
+    def top
+      @courses = Course.top_rated
       json_response(@courses)
     end
 

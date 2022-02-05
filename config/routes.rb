@@ -24,7 +24,8 @@ Rails.application.routes.draw do
         :created,
         :pending,
         :rejected,
-        :from_different_teachers, 
+        :from_different_teachers,
+        :top,
         on: :collection
 
       member do

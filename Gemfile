@@ -33,6 +33,7 @@ gem 'pundit'
 gem 'money-rails', '~> 1.13.3'
 gem 'money', '~> 6.13.5'
 gem 'faker'
+gem 'ransack'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
