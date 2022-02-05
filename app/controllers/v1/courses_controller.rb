@@ -3,7 +3,7 @@
 module V1
   class CoursesController < ApplicationController
     skip_before_action :authorize_request, only: [:index, :show]
-    before_action :set_course, only: [:show, :update, :destroy, :accept, :reject, :publish, :unpublish, :upload]
+    before_action :set_course, only: [:show, :update, :destroy, :accept, :reject, :publish, :unpublish, :upload, :rate_course]
 
     def index
       # @courses = Course.published.accepted.paginate(page: params[:page], per_page: 20)
@@ -85,6 +85,16 @@ module V1
         json_response(@course)
       else
         json_response(@course, :unprocessable_entity)
+      end
+    end
+
+    def rate_course
+      if (joins = @current_user.joins.where(course_id: @course.id))
+        joins[0].update(rating: params[:rating], review: params[:review])
+        @course.rate!
+        json_response(@course)
+      else
+        json_response({})
       end
     end
 

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       get :full_list, on: :collection
     end
 
-    post :create_payment_intent, to: 'orders#create_payment_intent'
+    # post :create_payment_intent, to: 'orders#create_payment_intent'
 
     resources :courses do
       get :purchased, 
@@ -33,6 +33,7 @@ Rails.application.routes.draw do
         patch :publish
         patch :unpublish
         put :upload
+        put :rate_course
       end
 
       resources :lectures do
