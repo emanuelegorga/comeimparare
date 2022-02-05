@@ -12,7 +12,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :orders
+    resources :orders do
+      get :full_list, on: :collection
+    end
 
     post :create_payment_intent, to: 'orders#create_payment_intent'
 

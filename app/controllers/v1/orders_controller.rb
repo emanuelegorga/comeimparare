@@ -62,6 +62,11 @@ module V1
       json_response(@current_user.orders)
     end
 
+    def full_list
+      authorize @current_user
+      json_response(Order.all)
+    end
+
     private
 
     def set_order
