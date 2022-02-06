@@ -19,7 +19,13 @@ module V1
     def create
       user = User.create!(user_params)
       auth_token = AuthenticateUser.new(user.email, user.password).call
-      response = { message: Message.account_created, auth_token: auth_token }
+      response = { 
+        message: Message.account_created,
+        auth_token: auth_token,
+        id: user.id,
+        is_admin: user.has_role?(:admin),
+        name: user.name 
+      }
       json_response(response, :created)
     end
 
