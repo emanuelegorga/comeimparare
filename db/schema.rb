@@ -91,8 +91,11 @@ ActiveRecord::Schema.define(version: 2022_02_05_101835) do
 
   create_table "orders", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
+    t.integer "total", default: 0
     t.text "courses", default: [], array: true
-    t.text "text", default: [], array: true
+    t.string "payment_method"
+    t.datetime "paid_at", precision: 6
+    t.json "metadata", default: {}
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_orders_on_user_id"
