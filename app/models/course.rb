@@ -14,7 +14,7 @@ class Course < ApplicationRecord
 
   belongs_to :user, counter_cache: true
   has_many :lectures, dependent: :destroy, inverse_of: :course
-  has_many :joins
+  has_many :joins, dependent: :destroy
   has_many :progress_tracks, through: :lectures
 
   DIFFICULTY_LEVELS = {

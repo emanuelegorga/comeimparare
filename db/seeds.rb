@@ -31,7 +31,7 @@ student = User.find_by(email: 'student@comeimparare.it')
     title: Faker::Movie.title, 
     description: Faker::Movie.quote,
     summary: Faker::TvShows::FamilyGuy.quote,
-    price: Faker::Number.between(from: 1000, to: 30000),
+    price: Faker::Number.between(from: 10, to: 50),
     difficulty: rand(0..2),
     language: rand(0..3),
     accepted: true,

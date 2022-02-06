@@ -35,21 +35,21 @@ module V1
     end
 
     def purchased
-      @courses = Course.joins(:joins).where(joins: { user: current_user })
+      @courses = Course.joins(:joins).where(joins: { user: current_user }).order(:title)
       json_response(@courses)
     end
 
     def pending_review
-      @courses = Course.joins(:joins).merge(Join.pending_review.where(user: current_user))
+      @courses = Course.joins(:joins).merge(Join.pending_review.where(user: current_user)).order(:title)
       json_response(@courses)
     end
 
     def created
-      json_response(Course.where({ user: current_user }))
+      json_response(Course.where({ user: current_user }).order(:title))
     end
 
     def from_different_teachers
-      json_response(Course.where.not({user: current_user}))
+      json_response(Course.where.not({user: current_user}).order(:title))
     end
 
     def top
