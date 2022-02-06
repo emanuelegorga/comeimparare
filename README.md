@@ -4,9 +4,9 @@
 
 ## This API powers the Live preview of a React UI.
 
-### The live can be seen here: https://comeimparare.herokuapp.com/
+### The live can be seen here: https://comeimparare.netlify.app/
 
-### React Frontend: https://github.com/emanuelegorga/comeimparare-frontend
+### React Frontend: https://github.com/emanuelegorga/comeimparare-frontend
 
 ### Introduction to the API
 
