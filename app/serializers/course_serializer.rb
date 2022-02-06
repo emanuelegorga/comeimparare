@@ -15,7 +15,9 @@ class CourseSerializer < ActiveModel::Serializer
     :published,
     :average_rating,
     :profit,
-    :logo_url
+    :logo_url,
+    :user_id,
+    :lectures_count
 
   belongs_to :user
   has_many :lectures
