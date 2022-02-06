@@ -6,13 +6,8 @@ module V1
     before_action :set_course, only: [:show, :update, :destroy, :accept, :reject, :publish, :unpublish, :upload, :rate_course]
 
     def index
-      if params[:search_title] && !params[:search_title].empty?
-        ransack_courses = Course.ransack(title_cont: params[:search_title]).result(distinct: true)
-        # @courses = ransack_courses.paginate(page: params[:page], per_page: 4)
-        @courses = ransack_courses.paginate(page: params[:page], per_page: 1)
-      else
-        @courses = Course.paginate(page: params[:page], per_page: 20)
-      end
+      ransack_courses = Course.ransack(title_cont: params[:search_title]).result(distinct: true).order(:title)
+      @courses = ransack_courses.paginate(page: params[:page], per_page: 8)
       json_response({corsi: @courses, pages: @courses.total_pages, page: @courses.current_page})
     end
 
@@ -50,22 +45,19 @@ module V1
     end
 
     def created
-      @courses = Course.where({ user: current_user })
-      json_response(@courses)
+      json_response(Course.where({ user: current_user }))
     end
 
     def from_different_teachers
-      @courses = Course.where.not({user: current_user})
-      json_response(@courses)
+      json_response(Course.where.not({user: current_user}))
     end
 
     def top
-      @courses = Course.top_rated
-      json_response(@courses)
+      json_response(Course.top_rated.order(:title))
     end
 
     def latest
-      json_response(Course.latest)
+      json_response(Course.latest.order(:title))
     end
 
     def accept

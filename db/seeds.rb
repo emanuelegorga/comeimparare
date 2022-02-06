@@ -39,6 +39,7 @@ student = User.find_by(email: 'student@comeimparare.it')
   )
   course.logo.attach(io: File.open(File.join(Rails.root,'app/assets/images/sample.jpg')), filename: 'sample.jpg')
   student.join_course(course)
+  student.rate_course(course, rand(1..5), Faker::TvShows::FamilyGuy.quote)
   lecture = course.lectures.create!(
     title: Faker::Movie.title,
     content: Faker::Lorem.paragraph

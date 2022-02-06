@@ -48,6 +48,13 @@ class User < ApplicationRecord
     update_column(:balance, (course_profit - join_costs))
   end
 
+  def rate_course(course_to_rate, rate, review = nil)
+    return false unless joins.where(course_id: course_to_rate.id)
+    join = joins.where(course_id: course_to_rate)[0]
+    join.update(rating: rate, review: review)
+    course_to_rate.rate!
+  end 
+
   private
 
   def minimum_role_check
