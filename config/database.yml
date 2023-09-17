@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   database: come_imparare_production
   username: come_imparare
   password: <%= ENV["COME_IMPARARE_DATABASE_PASSWORD"] %>
