@@ -4,6 +4,12 @@
 
 ## This API powers the Live preview of a React UI.
 
+### The API can be seen here: https://comeimparare.onrender.com/
+
+The API is hosted on Render, a cloud platform that offers a free tier for web services.
+
+If you are testing the API in production and see that the server is taking time to respond, please note that Render free web service tier spins down the instance whenever there is an activity for more than 15 minutes. It automatically spin back up when a new web request is received. This may take up to 30 seconds, however, following requests will be served immediately.
+
 ### The live can be seen here: https://comeimparare.netlify.app/
 
 ### React Frontend: https://github.com/emanuelegorga/comeimparare-frontend
@@ -56,20 +62,28 @@ The database is formed by the following tables:
 
 ```
 git clone git@github.com:emanuelegorga/comeimparare.git
-cd golearn
+cd comeimparare
 bundle install
 ```
 
 2. IMPORTANT You will need to set up the credentials in order to correctly run the application. The application uses Stripe API to process payments.
 
 ```
-EDITOR="vim" rails credentials:edit --environment development
-EDITOR="vim" rails credentials:edit --environment production
+touch .env
 ```
 
-<img width="317" alt="credentials" src="https://user-images.githubusercontent.com/40179292/152700947-602502b8-d39d-43b6-83b1-9935c25e1007.png">
+Add the following credentials to the .env file:
 
-3. Run the database migrations
+```
+STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+AWS_ACCESS_KEY_ID=your_aws_access_key_id
+AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
+AWS_REGION=your_aws_region
+AWS_BUCKET=your_aws_bucket
+```
+
+3. Run the database migrations and seed the database
 
 ```
 rails db:create; rails db:migrate; rails db:seed;

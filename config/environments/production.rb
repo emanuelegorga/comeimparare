@@ -4,7 +4,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   routes.default_url_options = {
-    host: 'comeimparare.herokuapp.com',
+    host: 'comeimparare.onrender.com',
     protocol: 'https'
   }
 

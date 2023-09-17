@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'application#home'
+
   scope module: :v1, constraints: ApiVersion.new('v1', true) do
     post 'auth/login', to: 'authentication#authenticate'
 

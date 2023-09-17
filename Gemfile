@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rubocop-rails'
   gem 'capybara', '>= 3.26'
   gem 'rspec-rails'
+  gem 'dotenv-rails'
 end
 
 group :test do
@@ -50,4 +51,3 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'database_cleaner', '~> 1.7.0'
 end
-
